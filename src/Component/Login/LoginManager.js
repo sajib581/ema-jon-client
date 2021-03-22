@@ -3,8 +3,8 @@ import "firebase/auth";
 import firebaseConfig from './firebase.config';
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
-// const fbProvider = new firebase.auth.FacebookAuthProvider();
-// const githubProvider = new firebase.auth.GithubAuthProvider();
+const fbProvider = new firebase.auth.FacebookAuthProvider();
+const githubProvider = new firebase.auth.GithubAuthProvider();
 // const yahooProvider = new firebase.auth.OAuthProvider('yahoo.com');
 
 if (firebase.apps.length === 0) {
@@ -32,45 +32,45 @@ export const googleSignInHandeler = () => {
         });
 }
 
-// export const fbSignInHandeler = () => {
-//     return firebase.auth().signInWithPopup(fbProvider)
-//         .then((result) => {
-//             const { displayName, email, photoURL, uid } = result.user
-//             const signedInUser = {
-//                 isLoggedIn: true,
-//                 name: displayName,
-//                 email,
-//                 photo: photoURL,
-//                 uid: uid
-//             }
-//             return signedInUser
-//         })
-//         .catch((error) => {
-//             const newUserInfo = {}
-//             newUserInfo.error = error.message;
-//             newUserInfo.success = false;
-//             return newUserInfo
-//         });
-// }
+export const fbSignInHandeler = () => {
+    return firebase.auth().signInWithPopup(fbProvider)
+        .then((result) => {
+            const { displayName, email, photoURL, uid } = result.user
+            const signedInUser = {
+                isLoggedIn: true,
+                name: displayName, 
+                email,
+                photo: photoURL,
+                uid: uid
+            }
+            return signedInUser
+        })
+        .catch((error) => {
+            const newUserInfo = {}
+            newUserInfo.error = error.message;
+            newUserInfo.success = false;
+            return newUserInfo
+        });
+}
 
-// export const githubSignInHandeler = () => {
-//     return firebase
-//         .auth()
-//         .signInWithPopup(githubProvider)
-//         .then((result) => {
-//             var user = result.user;
-//             user.isLoggedIn = true;
-//             console.log("github success");
-//             return user
+export const githubSignInHandeler = () => {
+    return firebase
+        .auth()
+        .signInWithPopup(githubProvider)
+        .then((result) => {
+            var user = result.user;
+            user.isLoggedIn = true;
+            console.log("github success");
+            return user
             
-//         }).catch((error) => {
-//             const newUserInfo = {}
-//             newUserInfo.error = error.message;
-//             newUserInfo.success = false;
-//             console.log("github failed");
-//             return newUserInfo
-//         });
-// }
+        }).catch((error) => {
+            const newUserInfo = {}
+            newUserInfo.error = error.message;
+            newUserInfo.success = false;
+            console.log("github failed");
+            return newUserInfo
+        });
+}
 
 // export const yahooSignInHandeler = () => {
 //     return firebase.auth().signInWithPopup(yahooProvider)

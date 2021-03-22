@@ -57,19 +57,19 @@ const Login = () => {
             })
     }
 
-    // const handelFbSignIn = () => {
-    //     fbSignInHandeler()
-    //         .then(res => {
-    //             handelResponse(res)
-    //         })
-    // }
+    const handelFbSignIn = () => {
+        fbSignInHandeler()
+            .then(res => {
+                handelResponse(res)
+            })
+    }
 
-    // const handelGithubSignIn = () => {
-    //     githubSignInHandeler()
-    //         .then(res => {
-    //             handelResponse(res)
-    //         })
-    // }
+    const handelGithubSignIn = () => {
+        githubSignInHandeler()
+            .then(res => {
+                handelResponse(res)
+            })
+    }
 
     // const handelYahooSignIn = () => {
     //     yahooSignInHandeler()
@@ -190,10 +190,10 @@ const Login = () => {
                             </div>
                         </div>
 
-                        <div className="d-flex justify-content-between">
-                            {/* <img onClick={handelFbSignIn} style={{ width: '50px', cursor: "pointer" }} src="https://hrcdn.net/community-frontend/assets/facebook-colored-af4249157d.svg" alt="" /> */}
+                        <div className="d-flex justify-content-between px-5">
+                            <img onClick={handelFbSignIn} style={{ width: '50px', cursor: "pointer" }} src="https://hrcdn.net/community-frontend/assets/facebook-colored-af4249157d.svg" alt="" />
                             <img onClick={handelGoogleSignIn} style={{ width: '50px', cursor: "pointer" }} src="https://hrcdn.net/community-frontend/assets/google-colored-20b8216731.svg" alt="" />
-                            {/* <img onClick={handelGithubSignIn} style={{ width: '50px', cursor: "pointer" }} src="https://hrcdn.net/community-frontend/assets/github-colored-1db995054b.svg" alt="" /> */}
+                            <img onClick={handelGithubSignIn} style={{ width: '50px', cursor: "pointer" }} src="https://hrcdn.net/community-frontend/assets/github-colored-1db995054b.svg" alt="" />
                             {/* <img onClick={handelYahooSignIn} style={{ width: '80px', cursor: "pointer" }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Yahoo%21_icon.svg/1200px-Yahoo%21_icon.svg.png" alt="" /> */}
 
                         </div>
