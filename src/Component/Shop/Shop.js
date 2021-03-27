@@ -7,24 +7,31 @@ import Product from '../Product/Product';
 import './Shop.css'
 
 const Shop = () => {
-    const first10 = fakeData.slice(0,10);
-    const [products, setProducts] = useState(first10)
+    const [products, setProducts] = useState([])
     const [cart, setCart] = useState([])
 
-    useEffect
-    (() => {
+    useEffect(()=>{
+        fetch("http://localhost:4000/getAllPrpoducts")
+        .then(response => response.json())
+        .then(data => setProducts(data))
+    },[])
+    
+    useEffect(() => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart)
         const counts = Object.values(savedCart)
 
-        const cartProducts = productKeys.map(key => {
-            const product = fakeData.find(pd => pd.key === key)
-            product.quantity = savedCart[key]
-            return product
-        })
-
-        setCart(cartProducts)
-    }, [])
+        if(products.length > 0){
+            const cartProducts = productKeys.map(key => {
+                const product = products.find(pd => pd.key === key)
+                product.quantity = savedCart[key]
+                return product
+            })
+    
+            setCart(cartProducts)
+        }
+    }, [products])
+    
 
     const handelAddProduct = (product) =>{
         const toBeAdded = product.key

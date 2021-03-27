@@ -43,8 +43,7 @@ const Login = () => {
             email : res.email,
             name : res.name,
             isLoggedIn: true,
-            photo : res.photo,
-            title: "Jay Sree Ram"
+            photo : res.photo
         }
         localStorage.setItem("userInfo",JSON.stringify(newLoggedInUser))
         history.replace(from);

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Product = ({ product, handelAddProduct, showAddToCart }) => {
     const { name, img, seller, price, stock, key } = product 
-
+    
     return (
         <div className="product">
             <div>
