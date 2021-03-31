@@ -41,6 +41,7 @@ const Shop = () => {
 
     useEffect(() => {
         const savedCart = getDatabaseCart();
+        console.log(savedCart);
         const productKeys = Object.keys(savedCart)
         const counts = Object.values(savedCart)
 
@@ -78,12 +79,12 @@ const Shop = () => {
             <div className="twin-container">
                 <div className="product-container">
                     {
-                        products && viewProducts.map(product => <Product product={product} showAddToCart={true} handelAddProduct={handelAddProduct}></Product>)
+                        products && viewProducts.map((product, index) => <Product key = {index} product={product} showAddToCart={true} handelAddProduct={handelAddProduct}></Product>)
                     }
                 </div>
                 <div className="cart-container">
                     <Cart cart={cart}>
-                        <Link to="/review"><button className="main-button">Review Order</button></Link>
+                        <Link to="/review"><button className="main-button mt-3">Review Order</button></Link>
                     </Cart>
                 </div>
             </div>

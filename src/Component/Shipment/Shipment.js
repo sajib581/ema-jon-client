@@ -1,30 +1,56 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
+import { useHistory } from 'react-router';
 import { UserContext } from '../../App';
 import './Shipment.css'
+import happyImage from '../../simple-resources/images/giphy.gif'
+import { processOrder } from '../../simple-resources/utilities/databaseManager';
 
 const Shipment = () => {
+    const history = useHistory()
+    const [orderPlaced, setorderPlaced] = useState(false)
     const { register, handleSubmit, watch, errors } = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = data => {
+        fetch('http://localhost:4000/addAOrder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    processOrder()
+                    alert('Order Added successfully')
+                    setorderPlaced(true)
+                }
+            })
+    }
     const [loggedInUser, setLoggedInUser] = useContext(UserContext)
+    let thankYou;
+    if (orderPlaced) {
+        thankYou = <img src={happyImage}></img>
+    }
     return (
-        <div>
+        <div className="d-flex">
             <form onSubmit={handleSubmit(onSubmit)} className="ship-form">
-                
-                <input name="name" defaultValue={loggedInUser.name} ref={register({ required: true })} />                
+
+                <input name="name" defaultValue={loggedInUser.name} ref={register({ required: true })} />
                 {errors.name && <span>This field is required</span>}
 
-                <input name="email" defaultValue={loggedInUser.email} ref={register({ required: true })} />                
+                <input name="email" defaultValue={loggedInUser.email} ref={register({ required: true })} />
                 {errors.email && <span>This field is required</span>}
 
-                <input name="phone" placeholder="Enter phone number" ref={register({ required: true })} />                
+                <input name="phone" placeholder="Enter phone number" ref={register({ required: true })} />
                 {errors.phone && <span>This field is required</span>}
 
-                <input name="address" placeholder="Address" ref={register({ required: true })} />                
+                <input name="address" placeholder="Address" ref={register({ required: true })} />
                 {errors.address && <span>This field is required</span>}
-                
+
                 <input type="submit" />
             </form>
+            {
+                thankYou
+            }
 
         </div>
     );

@@ -20,3 +20,10 @@
     border-radius: 5px ;
     cursor: pointer;
 }
+
+.product-description p,.product-description h4{
+    margin: 0;    
+}
+.product-description p{
+    padding-bottom: 5px;
+}

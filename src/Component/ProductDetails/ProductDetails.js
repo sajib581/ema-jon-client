@@ -15,8 +15,6 @@ const ProductDetails = () => {
 
     return (
         <div>
-            <h2>Product Details Coming Soon</h2>
-            <h3>{productId}</h3>
             <Product
                 showAddToCart = {false}
                 product = {product}

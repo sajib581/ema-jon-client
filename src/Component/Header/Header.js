@@ -21,7 +21,7 @@ const Header = () => {
             <nav>
                 <Link to="/shop">Shop</Link>
                 <Link to="/review">Order Review</Link>
-                <Link to="/inventory">Manage Inventory</Link>
+                <Link to="/inventory">Admin</Link>
                 {
                     loggedInUser.isLoggedIn ?                        
                         <button onClick={logOutHandeler} className="btn-brand">LogOut</button> :

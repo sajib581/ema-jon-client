@@ -1,10 +1,12 @@
 const getUser = () => {
-    const existingUser = sessionStorage.getItem('userId');
+    const existingUser = localStorage.getItem('userId');
+    console.log(existingUser);
     if (existingUser) {
         return existingUser; 
     } else {
         const newUser = 'user-' + new Date().getTime();
-        sessionStorage.setItem('userId', newUser)
+        console.log(newUser);
+        localStorage.setItem('userId', newUser)
         return newUser;
     }
 }
@@ -12,12 +14,14 @@ const getUser = () => {
 
 const getDataKey = () => {
     const userId = getUser();
+    console.log(userId);
     return `emaJohn/carts/${userId}`
 }
 
 // push to local storage: a temporary place for database
 const getDatabaseCart = () => {
     const dataKey = getDataKey();
+    console.log(dataKey);
     const data = localStorage.getItem(dataKey) || "{}";
     return JSON.parse(data);
 }

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../simple-resources/utilities/databaseManager';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
-import happyImage from '../../simple-resources/images/giphy.gif'
 import { useHistory } from 'react-router';
 
 const Review = () => {
     const [cart, setcart] = useState([])
-    const [orderPlaced, setorderPlaced] = useState(false)
+    
     const removeProduct = key => {
         removeFromDatabaseCart(key)
         const newcart = cart.filter(pd => pd.key !== key)
@@ -36,15 +35,8 @@ const Review = () => {
     }, [])
     console.log(cart);
     const history = useHistory()
-    const handelProceedCheckOut = () => {
-        // setcart([])
-        // setorderPlaced(true)
-        // processOrder()
+    const handelProceedCheckOut = () => {        
         history.push("/shipment")
-    }
-    let thankYou;
-    if (orderPlaced) {
-        thankYou = <img src={happyImage}></img>
     }
 
     return (
@@ -54,7 +46,6 @@ const Review = () => {
                 {
                     cart.map(pd => <ReviewItem key={pd.key} removeProduct={removeProduct} product={pd}></ReviewItem>)
                 }
-                {thankYou}
             </div>
 
             <div>
