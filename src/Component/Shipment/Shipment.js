@@ -24,15 +24,19 @@ const Shipment = () => {
                     setorderPlaced(true)
                 }
             })
+        setorderPlaced(true)
     }
     const [loggedInUser, setLoggedInUser] = useContext(UserContext)
     let thankYou;
     if (orderPlaced) {
-        thankYou = <img src={happyImage}></img>
+        thankYou = <img style={{position: "absolute" , right: '100px'}} src={happyImage}></img>
     }
     return (
-        <div className="d-flex">
-            <form onSubmit={handleSubmit(onSubmit)} className="ship-form">
+        <div  className="d-flex">
+           {
+               orderPlaced &&  <button onClick={()=>history.push('/')} style={{position: 'fixed', left: '15%', top:"50%"}} className="btn btn-brand">Back To Home Page</button>
+           } 
+            <form style={{ display: orderPlaced ? "none" : "block"}} onSubmit={handleSubmit(onSubmit)} className="ship-form">
 
                 <input name="name" defaultValue={loggedInUser.name} ref={register({ required: true })} />
                 {errors.name && <span>This field is required</span>}
