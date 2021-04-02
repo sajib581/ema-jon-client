@@ -9,6 +9,7 @@ import { processOrder } from '../../simple-resources/utilities/databaseManager';
 const Shipment = () => {
     const history = useHistory()
     const [orderPlaced, setorderPlaced] = useState(false)
+    const [, , products, setProducts, totalCart, setTotalCart] = useContext(UserContext)
     const { register, handleSubmit, watch, errors } = useForm();
     const onSubmit = data => {
         fetch('https://lit-temple-12670.herokuapp.com/addAOrder', {
@@ -22,6 +23,7 @@ const Shipment = () => {
                     processOrder()
                     alert('Order Added successfully')
                     setorderPlaced(true)
+                    setTotalCart(0)
                 }
             })
         setorderPlaced(true)
