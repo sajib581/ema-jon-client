@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { addToDatabaseCart, getDatabaseCart } from '../../simple-resources/utilities/databaseManager';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css'
 import Pagination from 'react-bootstrap/Pagination'
+import { UserContext } from '../../App';
 
 const Shop = () => {
-    const [products, setProducts] = useState([])
+    const [, , products, setProducts, totalCart, setTotalCart] = useContext(UserContext)
     const [cart, setCart] = useState([])
     const [viewProducts, setViewProducts] = useState([])
-    const [active, setActive] = useState(1) ;
+    const [active, setActive] = useState(1);
 
     //react-bootstrap pagination criteria
     let items = [];
@@ -24,24 +25,23 @@ const Shop = () => {
 
     const paginationHandler = (e) => {
         const pressedNumber = e ? Number(e.target.innerText) : 1
-        const viewProduct = products.slice((pressedNumber-1)*20, pressedNumber*20)
+        const viewProduct = products.slice((pressedNumber - 1) * 20, pressedNumber * 20)
         setViewProducts(viewProduct)
         setActive(pressedNumber)
     }
-    
-    useEffect(() => {
-        paginationHandler()
-    },[products])
 
     useEffect(() => {
-        fetch("http://localhost:4000/getAllPrpoducts")
+        paginationHandler()
+    }, [products])
+
+    useEffect(() => {
+        fetch("https://lit-temple-12670.herokuapp.com/getAllPrpoducts")
             .then(response => response.json())
             .then(data => setProducts(data))
     }, [])
 
     useEffect(() => {
         const savedCart = getDatabaseCart();
-        console.log(savedCart);
         const productKeys = Object.keys(savedCart)
         const counts = Object.values(savedCart)
 
@@ -72,6 +72,9 @@ const Shop = () => {
             setCart(newCart)
         }
         addToDatabaseCart(product.key, count)
+        const cartValueArray = Object.values(getDatabaseCart())
+        const totalNumberCart = cartValueArray.reduce((total, value) => total + value, 0)
+        setTotalCart(totalNumberCart)
     }
 
     return (
@@ -79,7 +82,7 @@ const Shop = () => {
             <div className="twin-container">
                 <div className="product-container">
                     {
-                        products && viewProducts.map((product, index) => <Product key = {index} product={product} showAddToCart={true} handelAddProduct={handelAddProduct}></Product>)
+                        products && viewProducts.map((product, index) => <Product key={index} product={product} showAddToCart={true} handelAddProduct={handelAddProduct}></Product>)
                     }
                 </div>
                 <div className="cart-container">
@@ -89,9 +92,9 @@ const Shop = () => {
                 </div>
             </div>
             <div className="my-5">
-            {
-                viewProducts.length > 0 && <Pagination className="d-flex justify-content-center" onClick={paginationHandler}>{items}</Pagination>
-            }
+                {
+                    viewProducts.length > 0 && <Pagination className="d-flex justify-content-center" onClick={paginationHandler}>{items}</Pagination>
+                }
             </div>
         </div>
     );

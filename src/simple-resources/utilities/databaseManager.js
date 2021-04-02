@@ -1,6 +1,5 @@
 const getUser = () => {
     const existingUser = localStorage.getItem('userId');
-    console.log(existingUser);
     if (existingUser) {
         return existingUser; 
     } else {
@@ -12,16 +11,14 @@ const getUser = () => {
 }
 
 
-const getDataKey = () => {
+export const getDataKey = () => {
     const userId = getUser();
-    console.log(userId);
     return `emaJohn/carts/${userId}`
 }
 
 // push to local storage: a temporary place for database
 const getDatabaseCart = () => {
     const dataKey = getDataKey();
-    console.log(dataKey);
     const data = localStorage.getItem(dataKey) || "{}";
     return JSON.parse(data);
 }

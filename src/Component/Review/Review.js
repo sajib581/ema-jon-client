@@ -1,23 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../simple-resources/utilities/databaseManager';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
 import { useHistory } from 'react-router';
+import { UserContext } from '../../App';
 
 const Review = () => {
     const [cart, setcart] = useState([])
-    
+    const [, , , , totalCart, setTotalCart] = useContext(UserContext)
+
     const removeProduct = key => {
         removeFromDatabaseCart(key)
         const newcart = cart.filter(pd => pd.key !== key)
         setcart(newcart)
+
+        const cartValueArray = Object.values(getDatabaseCart())
+        const totalNumberCart = cartValueArray.reduce((total, value) => total + value, 0)
+        setTotalCart(totalNumberCart)
     }
     useEffect(() => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart)
         const counts = Object.values(savedCart)
 
-        fetch('http://localhost:4000/productsByKeys', {
+        fetch('https://lit-temple-12670.herokuapp.com/productsByKeys', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(productKeys)
@@ -33,7 +39,6 @@ const Review = () => {
                 }
             })
     }, [])
-    console.log(cart);
     const history = useHistory()
     const handelProceedCheckOut = () => {        
         history.push("/shipment")

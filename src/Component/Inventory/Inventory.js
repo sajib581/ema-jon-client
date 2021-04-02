@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import FeatureModal from '../FeatureModal/FeatureModal';
 import Modal from 'react-modal';
+import { uid } from 'uid'; // crypto-js can be used for node.js
+
 Modal.setAppElement('#root')
 
 const Inventory = () => {
@@ -21,15 +23,8 @@ const Inventory = () => {
         setFile(newFile)
     }
     const submitHandeler = (e) => {
-        var currentdate = new Date();
-        var datetime = currentdate.getDate() + "/"
-            + (currentdate.getMonth() + 1) + "/"
-            + currentdate.getFullYear() + " @ "
-            + currentdate.getHours() + ":"
-            + currentdate.getMinutes() + ":"
-            + currentdate.getSeconds();
-        const key = datetime
-        const star = 0;
+        const key = uid();
+        const star = 3;
         const formData = new FormData()
 
         formData.append('file', file)
@@ -41,7 +36,7 @@ const Inventory = () => {
         formData.append('star', star)
         formData.append('features', JSON.stringify(features))
 
-        fetch('http://localhost:4000/addAProduct', {
+        fetch('https://lit-temple-12670.herokuapp.com/addAProduct', {
             method: 'POST',
             body: formData
         })

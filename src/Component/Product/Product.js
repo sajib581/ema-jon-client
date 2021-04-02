@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
 import { faStar} from '@fortawesome/free-solid-svg-icons'
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Product = ({ product, handelAddProduct, showAddToCart }) => {
     const { name, img, seller, price, stock, key, star, features } = product
 
-
+    const history = useHistory()
     const starBag = [] ;
     for (let i = 1; i<=5; i++){
         starBag.push(i<=star ? <FontAwesomeIcon style={{color:"orange"}} key={i} icon={faStar} /> : <FontAwesomeIcon style={{color:"lightGrey"}} key={i} icon={faStar} />)
@@ -17,10 +17,10 @@ const Product = ({ product, handelAddProduct, showAddToCart }) => {
     return (
         <div className="product">
             <div className="pr-3 d-flex">
-                <img style={{ width: "200px" }} src={img} alt="" />
+                <img style={{ width: "200px", cursor: "pointer" }} src={img}  onClick={() =>history.push("/product/" + key)} alt="" />
             </div>
             <div className="product-description">
-                <h5 className="product-name"><Link to={"/product/" + key}>{name}</Link> </h5> <br />
+                <h5 style={{cursor: "pointer" }} onClick={() =>history.push("/product/" + key)}className="product-name">{name}</h5> <br />
                 <div className="d-flex">
                     <div>
                         <p><small>by: {seller}</small></p>
@@ -37,7 +37,7 @@ const Product = ({ product, handelAddProduct, showAddToCart }) => {
                         <strong><h6>Features</h6></strong>
                         <ul>
                             {
-                                features.map((feature,key) => <li>{`${feature.description}:${feature.value}`}</li> )
+                                features && features.map((feature,key) => <li>{`${feature.description}:${feature.value}`}</li> )
                             }
                         </ul>
                     </div>

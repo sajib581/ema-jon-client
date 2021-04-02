@@ -11,7 +11,7 @@ const Shipment = () => {
     const [orderPlaced, setorderPlaced] = useState(false)
     const { register, handleSubmit, watch, errors } = useForm();
     const onSubmit = data => {
-        fetch('http://localhost:4000/addAOrder', {
+        fetch('https://lit-temple-12670.herokuapp.com/addAOrder', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
