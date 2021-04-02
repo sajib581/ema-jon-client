@@ -48,7 +48,7 @@ const Header = () => {
                 }
             </nav>
             <nav className="d-flex justify-content-center d-flex align-items-center mb-2 pb-2 pt-1">
-                <input onChange={searchHandeler} name="stock" className="form-control w-75 h-25" placeholder="Search Your Product" /> <FontAwesomeIcon className="ml-2" style={{color: 'white'}} icon={faShoppingCart} />{totalCart>0 && <span style={{color: 'white'}}> ({totalCart})</span>}  
+                <input onChange={searchHandeler} name="stock" className="form-control w-75 h-25" placeholder="Search Your Product" /> <FontAwesomeIcon onClick={()=> history.push("/review") } className="ml-2" style={{color: 'white', cursor: 'pointer'}} icon={faShoppingCart} />{totalCart>0 && <span onClick={()=> history.push("/review")} style={{color: 'white', cursor: 'pointer'}}> ({totalCart})</span>}  
             </nav>
         </div>
     );
